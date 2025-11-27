@@ -1,0 +1,289 @@
+.layout-wrapper {
+  max-width: calc(100% - 360px);
+  margin: 0 auto;
+}
+
+:root {
+  --green-soft: #b3c49a;
+  --green-panel: #dde5cf;
+  --green-card: #f3f6ec;
+
+  --yellow-panel: #f7e1a4;
+  --yellow-card: #fffdf6;
+
+  --radius-large: 24px;
+  --radius-card: 18px;
+
+  --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.main-header {
+  position: relative;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 80px;
+  padding: 0 16px;
+}
+
+
+.main-header__spacer {
+  width: 80px;
+}
+
+.main-header__logo {
+  margin: 0;
+  font-size: 22px;
+  font-family: 'Taenada', sans-serif;
+}
+
+.main-header__logo a {
+  color: #000;
+  text-decoration: none;
+}
+
+.main-header__right {
+  width: 80px;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+
+  align-self: flex-end;
+  padding-bottom: 8px;
+}
+
+
+.main-header__mypage {
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.main-header__dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px 0;
+  min-width: 120px;
+  box-shadow: var(--shadow-soft);
+}
+
+
+.main-header__dropdown-item {
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.main-header__dropdown-item:hover {
+  background-color: #f3f3f3;
+}
+
+.main-header__dropdown--open {
+  display: block;
+}
+
+.main-container {
+  padding: 32px 0 64px;
+}
+
+.main-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: var(--green-soft);
+  color: #fff;
+
+  padding: 28px 32px;
+  border-radius: var(--radius-large);
+
+  margin-bottom: 32px;
+}
+
+.main-banner__text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.main-banner__title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.main-banner__subtitle {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.main-banner__action {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.main-columns {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+}
+
+.panel {
+  padding: 20px;
+  border-radius: var(--radius-large);
+}
+
+.panel--my {
+  background-color: var(--green-panel);
+}
+
+.panel--recommend {
+  background-color: var(--yellow-panel);
+}
+
+.panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel__title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.panel__divider {
+  height: 1px;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.panel__divider--recommend {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.panel__body {
+  margin-top: 16px;
+}
+
+.empty {
+  text-align: center;
+  padding: 32px 12px;
+}
+
+.empty__text {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.link-button {
+  border: none;
+  background: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.challenge-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 추천 카드 색상 */
+.challenge-list--recommend .challenge-card {
+  background: var(--yellow-card);
+}
+
+.challenge-list--recommend .challenge-card__category {
+  color: #c59a1b;
+}
+
+.challenge-card {
+  background-color: var(--green-card);
+  padding: 14px 18px;
+  margin: 10px 0;
+  border-radius: var(--radius-card);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  cursor: pointer;
+  transition: 0.15s ease;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+.challenge-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+.challenge-card__left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.challenge-card__category {
+  font-size: 12px;
+  color: #7e9470;
+}
+
+.challenge-card__title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.challenge-card__meta {
+  font-size: 12px;
+  color: #777;
+}
+
+.challenge-card__right {
+  align-self: flex-end;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.challenge-card__action {
+  color: #4f6c3d;
+  cursor: inherit;
+}
+
+.challenge-card__action--done {
+  color: #9b9b9b;
+}
+
+@media (max-width: 900px) {
+  .layout-wrapper {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+
+  .main-columns {
+    grid-template-columns: 1fr;
+  }
+}

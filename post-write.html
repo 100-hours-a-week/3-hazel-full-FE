@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Up-Date | Up-Date 작성</title>
+
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/challenge-detail.css" />
+  <link rel="stylesheet" href="/css/post-write.css" />
+</head>
+<body>
+  <div class="layout-wrapper">
+    <header class="main-header">
+      <button
+        id="challenge-back-button"
+        class="main-header__back"
+        type="button"
+        aria-label="뒤로가기"
+      >
+        &lt;
+      </button>
+
+      <h1 class="main-header__logo">
+        <a href="main.html">Up-Date</a>
+      </h1>
+
+      <div class="main-header__right">
+        <button class="main-header__mypage" type="button">마이페이지</button>
+        <div id="mypage-dropdown" class="main-header__dropdown">
+          <button
+            id="mypage-profile"
+            class="main-header__dropdown-item"
+            type="button"
+          >
+            내 프로필
+          </button>
+          <button
+            id="mypage-logout"
+            class="main-header__dropdown-item"
+            type="button"
+          >
+            로그아웃
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="post-write">
+      <section class="post-write__card">
+        <header class="post-write__header">
+          <p class="post-write__challenge" id="post-write-challenge-name">
+            30일 공부 루틴 챌린지
+          </p>
+        </header>
+
+        <section class="post-write__form">
+          <label for="post-content" class="post-write__label">
+            오늘의 Up-Date
+          </label>
+          <p class="post-write__helper">
+            오늘 챌린지를 어떻게 수행했는지 간단하게 남겨주세요. (최소 10자, 최대 1000자)
+          </p>
+
+          <textarea
+            id="post-content"
+            class="post-write__textarea"
+            placeholder="예) 오늘은 30분 동안 집중해서 공부했어요. 처음엔 힘들었는데 끝나고 나니 뿌듯했어요!"
+          ></textarea>
+
+          <div class="post-write__meta">
+            <span class="post-write__counter">
+              <span id="post-content-length">0</span> / 1000
+            </span>
+          </div>
+
+          <p class="post-write__error" id="post-write-error">
+            내용을 최소 10자 이상 입력해 주세요.
+          </p>
+        </section>
+
+        <section class="post-write__actions">
+          <button
+            type="button"
+            class="post-write__button post-write__button--secondary"
+            id="post-write-cancel"
+          >
+            취소
+          </button>
+          <button
+            type="button"
+            class="post-write__button post-write__button--primary"
+            id="post-write-submit"
+            disabled
+          >
+            작성 완료
+          </button>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/post-write.js"></script>
+</body>
+</html>

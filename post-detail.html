@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Up-Date | Up-Date 상세</title>
+
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/challenge-detail.css" />
+  <link rel="stylesheet" href="/css/post-detail.css" />
+</head>
+<body>
+  <div class="layout-wrapper">
+
+    <header class="main-header">
+      <button id="challenge-back-button" class="main-header__back" type="button">&lt;</button>
+
+      <h1 class="main-header__logo">
+        <a href="main.html">Up-Date</a>
+      </h1>
+
+      <div class="main-header__right">
+        <button class="main-header__mypage">마이페이지</button>
+        <div id="mypage-dropdown" class="main-header__dropdown">
+          <button id="mypage-profile" class="main-header__dropdown-item">내 프로필</button>
+          <button id="mypage-logout" class="main-header__dropdown-item">로그아웃</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="post-detail">
+      <section class="post-detail__card">
+
+        <header class="post-detail__header">
+          <p class="post-detail__challenge" id="post-detail-challenge-name">
+            챌린지명
+          </p>
+        </header>
+
+        <section class="post-detail__section">
+          <div class="post-detail__label-row">
+            <span class="post-detail__label">오늘의 Up-Date</span>
+            <span class="post-detail__meta" id="post-detail-meta">
+              작성자 사용자 · 25-11-24 · 조회수 0
+            </span>
+          </div>
+
+          <div class="post-detail__divider"></div>
+
+          <article class="post-detail__content">
+            <div class="post-detail__text" id="post-detail-content">
+              내용이 여기에 들어갑니다.
+            </div>
+
+            <div class="post-detail__image-wrapper" id="post-detail-image-wrapper" style="display:none;">
+              <img id="post-detail-image" alt="Up-Date 이미지" />
+            </div>
+          </article>
+        </section>
+
+        <section class="post-detail__actions">
+          <button type="button" class="post-detail__button" id="post-detail-back">
+            챌린지로 돌아가기
+          </button>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/post-detail.js"></script>
+</body>
+</html>

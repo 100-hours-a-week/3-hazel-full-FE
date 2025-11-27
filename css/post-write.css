@@ -1,0 +1,130 @@
+.post-write {
+  padding: 40px 0 80px;
+}
+
+.post-write__card {
+  max-width: 640px;
+  margin: 0 auto;
+  background-color: #f3f6ec;
+  border-radius: var(--radius-large);
+  padding: 36px 40px 32px;
+  box-shadow: var(--shadow-soft);
+}
+
+.post-write__header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.post-write__challenge {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #222;
+}
+
+.post-write__form {
+  margin-bottom: 24px;
+}
+
+.post-write__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.post-write__helper {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #777;
+}
+
+.post-write__textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid #d1dbc3;
+  background-color: #fdfdf7;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+}
+
+.post-write__textarea:focus {
+  border-color: #b3c49a;               /* soft green */
+  box-shadow: 0 0 0 2px rgba(179, 196, 154, 0.25);
+  background-color: #ffffff;
+}
+
+.post-write__meta {
+  margin-top: 6px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.post-write__counter {
+  font-size: 11px;
+  color: #888;
+}
+
+.post-write__error {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #c62828;
+  display: none;
+}
+
+.post-write__actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.post-write__button {
+  min-width: 120px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.12s ease,
+              box-shadow 0.12s ease,
+              background-color 0.12s ease;
+}
+
+.post-write__button--secondary {
+  background-color: #dde5cf; 
+  color: #3d4d2e;
+}
+
+.post-write__button--primary {
+  background-color: var(--yellow-panel);
+  color: #644b0b;
+  box-shadow: var(--shadow-soft);
+}
+
+.post-write__button--primary:disabled {
+  background-color: #f3e6c3;
+  box-shadow: none;
+  cursor: default;
+}
+
+.post-write__button:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+@media (max-width: 900px) {
+  .post-write__card {
+    padding: 28px 20px 24px;
+  }
+
+  .post-write__challenge {
+    font-size: 20px;
+  }
+}

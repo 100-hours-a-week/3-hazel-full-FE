@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Up-Date | 로그인</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+</head>
+
+<body>
+    <div class="auth-page auth-page--login">
+        <!-- 공통 뒤로가기 버튼 (항상 왼쪽 상단 고정) -->
+        <button type="button" class="back-button" id="back-button">
+            &lt;
+        </button>
+
+        <!-- 로그인에서는 폼이 왼쪽, 연녹색이 오른쪽 (CSS order로 제어) -->
+        <aside class="auth-sidebar"></aside>
+
+        <main class="auth-main">
+            <section class="auth-card">
+                <h1 class="auth-title">로그인</h1>
+
+                <form id="login-form" class="auth-form" novalidate>
+                    <!-- 이메일 -->
+                    <div class="form-field">
+                        <label for="email" class="form-label">Email:</label>
+                        <input id="email" type="email" class="form-input" autocomplete="off" />
+                        <p class="error-message" id="email-error"></p>
+                    </div>
+
+                    <!-- 비밀번호 -->
+                    <div class="form-field">
+                        <label for="password" class="form-label">Password:</label>
+                        <input id="password" type="password" class="form-input" />
+                        <p class="error-message" id="password-error"></p>
+                    </div>
+
+                    <!-- 서버에서 온 로그인 실패 메시지용 -->
+                    <p class="error-message" id="login-error"></p>
+
+                    <button type="submit" class="primary-button" id="login-button">
+                        Login
+                    </button>
+                </form>
+
+                <p class="auth-footer-text">
+                    계정이 없으신가요?
+                    <a href="signup.html" class="auth-link">회원가입</a>
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/login.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>챌린지 목록 - Up-Date</title>
+
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+
+    <link rel="stylesheet" href="/css/challenge-list.css" />
+</head>
+
+<body>
+    <div class="layout-wrapper">
+        <header class="main-header">
+            <div class="main-header__spacer">
+                <button type="button" class="main-header__back" id="challenge-back-button">
+                    &lt;
+                </button>
+            </div>
+
+            <h1 class="main-header__logo">
+                <a href="main.html">Up-Date</a>
+            </h1>
+
+            <div class="main-header__right">
+                <button type="button" class="main-header__mypage">
+                    마이페이지
+                </button>
+                <div class="main-header__dropdown" id="mypage-dropdown">
+                    <button type="button" class="main-header__dropdown-item" id="mypage-profile">
+                        내 프로필
+                    </button>
+                    <button type="button" class="main-header__dropdown-item" id="mypage-logout">
+                        로그아웃
+                    </button>
+                </div>
+            </div>
+        </header>
+
+
+        <main class="main-container challenge-list-page">
+            <section class="challenge-categories">
+                <button type="button" class="category-chip" data-category="STUDY">
+                    #공부
+                </button>
+                <button type="button" class="category-chip" data-category="HEALTH">
+                    #운동
+                </button>
+                <button type="button" class="category-chip" data-category="READING">
+                    #독서
+                </button>
+                <button type="button" class="category-chip" data-category="LIFE">
+                    #생활습관
+                </button>
+                <button type="button" class="category-chip" data-category="ETC">
+                    #기타
+                </button>
+            </section>
+
+            <section class="challenge-list-section">
+                <div class="empty" id="challenge-empty" style="display: none;">
+                    <p class="empty__text">아직 챌린지가 없습니다.</p>
+                </div>
+
+                <ul class="challenge-list challenge-list--full challenge-list--recommend" id="challenge-list">
+                </ul>
+            </section>
+
+            <button type="button" class="challenge-fab" id="challenge-create-button">
+                +
+            </button>
+        </main>
+    </div>
+
+    <script src="/js/challenge-list.js"></script>
+</body>
+
+</html>

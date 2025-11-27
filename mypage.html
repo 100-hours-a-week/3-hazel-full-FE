@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Up-Date | 마이페이지</title>
+
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/mypage.css" />
+</head>
+<body>
+  <div class="layout-wrapper">
+
+    <header class="main-header">
+      <div class="main-header__spacer"></div>
+
+      <h1 class="main-header__logo">
+        <a href="/main.html" id="logo-link">Up-Date</a>
+      </h1>
+
+      <div class="main-header__right">
+        <button class="main-header__mypage" id="mypage-button" type="button">
+          마이페이지
+        </button>
+
+        <div class="main-header__dropdown" id="mypage-dropdown" aria-hidden="true">
+          <button class="main-header__dropdown-item" id="mypage-profile" type="button">
+            내 프로필
+          </button>
+          <button class="main-header__dropdown-item" id="mypage-logout" type="button">
+            로그아웃
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-container mypage">
+      <section class="mypage__card">
+        <h2 class="mypage__title">내 프로필</h2>
+
+        <div class="mypage__field">
+          <span class="mypage__label">닉네임</span>
+          <span class="mypage__value" id="profile-nickname">-</span>
+        </div>
+
+        <div class="mypage__field">
+          <span class="mypage__label">이메일</span>
+          <span class="mypage__value" id="profile-email">-</span>
+        </div>
+
+        <section class="mypage__actions">
+          <button
+            type="button"
+            class="mypage__button mypage__button--primary"
+            id="btn-edit-profile"
+          >
+            개인정보 수정하기
+          </button>
+          <button
+            type="button"
+            class="mypage__button mypage__button--secondary"
+            id="btn-edit-password"
+          >
+            비밀번호 수정하기
+          </button>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/mypage.js"></script>
+</body>
+</html>

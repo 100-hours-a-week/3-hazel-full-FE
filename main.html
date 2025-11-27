@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Up-Date | 홈</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+
+<div class="layout-wrapper">
+
+<header class="main-header">
+  <div class="main-header__spacer"></div>
+
+  <h1 class="main-header__logo">
+    <a href="/main.html" id="logo-link">Up-Date</a>
+  </h1>
+
+  <div class="main-header__right">
+    <button class="main-header__mypage" id="mypage-button" type="button">
+      마이페이지
+    </button>
+
+    <div class="main-header__dropdown" id="mypage-dropdown" aria-hidden="true">
+      <button class="main-header__dropdown-item" id="mypage-profile" type="button" data-action="profile">
+        내 프로필
+      </button>
+      <button class="main-header__dropdown-item" id="mypage-logout" type="button" data-action="logout">
+        로그아웃
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="main-container">
+
+  <section class="main-banner" id="top-banner">
+    <div class="main-banner__text">
+      <p class="main-banner__title" id="banner-title">오늘의 Up-Date를 공유해주세요!</p>
+      <p class="main-banner__subtitle" id="banner-subtitle">아직 오늘의 인증을 작성하지 않았어요</p>
+    </div>
+    <button class="main-banner__action" id="banner-action" type="button">&gt;</button>
+  </section>
+
+  <section class="main-columns">
+
+    <section class="panel panel--my" id="my-challenges-section">
+      <header class="panel__header">
+        <h2 class="panel__title">참여 중인 챌린지</h2>
+      </header>
+
+      <div class="panel__divider"></div>
+
+      <div class="panel__body">
+
+        <div class="empty" id="my-challenges-empty">
+          <p class="empty__text">
+            아직 참여 중인 챌린지가 없어요.<br />
+            어떤 챌린지가 있는지 살펴보러 갈까요?
+          </p>
+          <button class="link-button" id="my-challenges-explore">살펴보기 &gt;</button>
+        </div>
+
+        <ul class="challenge-list" id="my-challenges-list"></ul>
+      </div>
+    </section>
+
+    <section class="panel panel--recommend" id="recommended-section">
+      <header class="panel__header panel__header--recommend">
+        <h2 class="panel__title">추천 챌린지</h2>
+        <button class="link-button panel__link" id="recommended-view-all">전체 보기 &gt;</button>
+      </header>
+
+      <div class="panel__divider panel__divider--recommend"></div>
+
+      <div class="panel__body">
+
+        <div class="empty" id="recommended-empty">
+          <p class="empty__text">아직 챌린지가 없어요.</p>
+        </div>
+
+        <ul class="challenge-list challenge-list--recommend" id="recommended-list"></ul>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+</div>
+
+<div id="modal-root"></div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

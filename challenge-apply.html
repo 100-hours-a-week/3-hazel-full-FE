@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>챌린지 신청 | Up-Date</title>
+
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/challenge-apply.css" />
+</head>
+<body>
+  <div class="layout-wrapper">
+    <main class="apply-page">
+      <header class="apply-header">
+        <div class="apply-header__category" id="challenge-category">
+          #공부
+        </div>
+        <button
+          type="button"
+          class="apply-header__close"
+          id="apply-close-button"
+          aria-label="닫기"
+        >
+          ✕
+        </button>
+      </header>
+
+      <section class="challenge-apply-card">
+        <h1 class="challenge-apply__title" id="challenge-title">
+          30일 공부 루틴 챌린지
+        </h1>
+
+        <div class="challenge-apply__meta">
+          <span id="challenge-due">마감일: 기한 없음</span>
+          <span class="challenge-apply__meta-separator">|</span>
+          <span id="challenge-participants">총 0명 참여 중</span>
+        </div>
+
+        <div class="challenge-apply__description" id="challenge-description">
+          “하루에 딱 1시간.”<br />
+          짧지만 집중해서 공부하는 시간을 만드는 챌린지입니다.<br />
+          강의 듣기, 문제 풀기, 암기, 복습 등 어떤 공부든 상관없어요.<br />
+          그날 한 공부를 한 줄 Up-Date로 간단하게 기록하며<br />
+          자연스럽게 30일 동안의 학습 습관을 만들어가는 것이 목표예요.
+        </div>
+
+        <div class="challenge-apply__footer">
+          <button
+            type="button"
+            class="challenge-apply__button"
+            id="challenge-action-button"
+          >
+            참여하기
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/challenge-apply.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Up-Date | 챌린지 상세</title>
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/challenge-detail.css" />
+</head>
+<body>
+  <div class="layout-wrapper">
+    <header class="main-header">
+      <button
+        id="challenge-back-button"
+        class="main-header__back"
+        type="button"
+        aria-label="뒤로가기"
+      >
+        &lt;
+      </button>
+
+      <h1 class="main-header__logo">
+        <a href="main.html">Up-Date</a>
+      </h1>
+
+      <div class="main-header__right">
+        <button class="main-header__mypage" type="button">마이페이지</button>
+        <div id="mypage-dropdown" class="main-header__dropdown">
+          <button
+            id="mypage-profile"
+            class="main-header__dropdown-item"
+            type="button"
+          >
+            내 프로필
+          </button>
+          <button
+            id="mypage-logout"
+            class="main-header__dropdown-item"
+            type="button"
+          >
+            로그아웃
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="challenge-detail">
+      <section class="challenge-detail__hero" id="challenge-detail-hero">
+        <div
+          class="challenge-detail__category"
+          id="challenge-category"
+        >#공부</div>
+
+        <h2 class="challenge-detail__title" id="challenge-title">
+          30일 공부 루틴 챌린지
+        </h2>
+
+        <div class="challenge-detail__meta">
+          <span id="challenge-due">마감일: 기한 없음</span>
+          <span class="challenge-detail__meta-separator">|</span>
+          <span id="challenge-participants">총 0명 참여 중</span>
+        </div>
+
+        <p class="challenge-detail__description" id="challenge-description">
+          챌린지 설명이 여기에 들어갑니다.
+        </p>
+      </section>
+
+      <section class="challenge-detail__posts">
+        <div class="challenge-detail__posts-column">
+          <div class="challenge-detail__posts-header">
+            <h3 class="challenge-detail__posts-title">나의 Up-Date</h3>
+            <button
+              id="my-posts-write-button"
+              class="challenge-detail__write-button"
+              type="button"
+            >
+              작성하기
+            </button>
+          </div>
+          <div class="challenge-detail__divider"></div>
+
+          <div id="my-posts-empty" class="posts-empty" style="display: none;">
+            <p class="posts-empty__text">
+              아직 작성한 Up-Date가 없어요.
+            </p>
+          </div>
+
+          <ul id="my-posts-list" class="posts-list">
+          </ul>
+        </div>
+
+        <div class="challenge-detail__posts-column">
+          <div class="challenge-detail__posts-header">
+            <h3 class="challenge-detail__posts-title">전체 Up-Date</h3>
+          </div>
+          <div class="challenge-detail__divider"></div>
+
+          <div id="all-posts-empty" class="posts-empty" style="display: none;">
+            <p class="posts-empty__text">아직 Up-Date가 없어요.</p>
+          </div>
+
+          <ul id="all-posts-list" class="posts-list">
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/challenge-detail.js"></script>
+</body>
+</html>

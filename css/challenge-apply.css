@@ -1,0 +1,124 @@
+.layout-wrapper {
+  max-width: calc(100% - 360px);
+  margin: 0 auto;
+}
+
+:root {
+  --green-bg: #aebc9b;
+  --card-bg: #f5f5ee;
+  --accent-yellow: #f7e1a4;
+  --radius-large: 24px;
+  --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.apply-page {
+  margin-top: 40px;
+  margin-bottom: 64px;
+  background-color: var(--green-bg);
+  border-radius: 32px;
+  padding: 24px 24px 32px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+.apply-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.apply-header__category {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.apply-header__close {
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.challenge-apply-card {
+  background-color: var(--card-bg);
+  border-radius: 24px;
+  padding: 32px 32px 28px;
+  box-shadow: var(--shadow-soft);
+}
+
+.challenge-apply__title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.challenge-apply__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #dde5cf;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.challenge-apply__meta-separator {
+  opacity: 0.7;
+}
+
+.challenge-apply__description {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #333333;
+  white-space: pre-line;
+}
+
+.challenge-apply__footer {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.challenge-apply__button {
+  min-width: 140px;
+  padding: 12px 24px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: var(--accent-yellow);
+  color: #333333;
+  box-shadow: var(--shadow-soft);
+}
+
+.challenge-apply__button--joined {
+  background-color: #dddddd;
+  color: #777777;
+}
+
+@media (max-width: 900px) {
+  .layout-wrapper {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+
+  .apply-page {
+    margin-top: 24px;
+    padding: 20px 16px 24px;
+    border-radius: 24px;
+  }
+
+  .challenge-apply-card {
+    padding: 24px 18px 22px;
+  }
+
+  .challenge-apply__title {
+    font-size: 22px;
+  }
+}
