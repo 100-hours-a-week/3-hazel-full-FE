@@ -3,39 +3,43 @@ const API_CHALLENGES = `${API_BASE}/api/challenges`;
 const API_USERS = `${API_BASE}/api/users`;
 
 function setupBackButton() {
-    const backButton = document.getElementById('challenge-back-button');
+    const backButton = document.getElementById("challenge-back-button");
     if (!backButton) return;
 
-    backButton.addEventListener('click', () => {
+    backButton.addEventListener("click", () => {
         history.back();
     });
 }
+
 function setupHeader() {
-    const logoLink = document.querySelector('.main-header__logo a');
-    const mypageButton = document.querySelector('.main-header__mypage');
-    const dropdown = document.getElementById('mypage-dropdown');
-    const profileItem = document.getElementById('mypage-profile');
-    const logoutItem = document.getElementById('mypage-logout');
+    const logoLink = document.querySelector(".main-header__logo a");
+    const mypageButton = document.querySelector(".main-header__mypage");
+    const dropdown = document.getElementById("mypage-dropdown");
+    const profileItem = document.getElementById("mypage-profile");
+    const logoutItem = document.getElementById("mypage-logout");
 
-    logoLink.addEventListener('click', (event) => {
+    if (!logoLink || !mypageButton || !dropdown) return;
+
+    logoLink.addEventListener("click", (event) => {
         event.preventDefault();
-        location.href = 'main.html';
+        location.href = "main.html";
     });
 
-    mypageButton.addEventListener('click', () => {
-        dropdown.classList.toggle('main-header__dropdown--open');
+    mypageButton.addEventListener("click", () => {
+        dropdown.classList.toggle("main-header__dropdown--open");
     });
 
-    profileItem.addEventListener('click', () => {
-        location.href = 'mypage.html';
+    profileItem?.addEventListener("click", () => {
+        location.href = "mypage.html";
     });
 
-    logoutItem.addEventListener('click', () => {
-        localStorage.removeItem('currentUser');
-        location.href = 'login.html';
+    logoutItem?.addEventListener("click", () => {
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("accessToken");
+        location.href = "login.html";
     });
 
-    document.addEventListener('click', (event) => {
+    document.addEventListener("click", (event) => {
         if (
             mypageButton.contains(event.target) ||
             dropdown.contains(event.target)
@@ -43,7 +47,7 @@ function setupHeader() {
             return;
         }
 
-        dropdown.classList.remove('main-header__dropdown--open');
+        dropdown.classList.remove("main-header__dropdown--open");
     });
 }
 
@@ -75,15 +79,12 @@ function mapCategoryToKorean(category) {
             return category ?? "";
     }
 }
+
 function formatDueDate(dueDate) {
-    if (!dueDate) {
-        return "마감일: 기한 없음";
-    }
+    if (!dueDate) return "마감일: 기한 없음";
 
     const date = new Date(dueDate);
-    if (Number.isNaN(date.getTime())) {
-        return "마감일: 기한 없음";
-    }
+    if (Number.isNaN(date.getTime())) return "마감일: 기한 없음";
 
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -95,49 +96,38 @@ function formatDueDate(dueDate) {
 function formatPostDate(dateStr) {
     if (!dateStr) return "";
 
-    const [y, m, d] = dateStr.split("-");
-    const shortYear = y.slice(2);
+    const date = new Date(dateStr);
+    if (Number.isNaN(date.getTime())) return "";
 
-    return `${shortYear}-${m}-${d}`;
+    const y = String(date.getFullYear()).slice(2);
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+
+    return `${y}-${m}-${d}`;
 }
 
 async function fetchChallengeDetail(challengeId) {
-    const response = await fetch(`${API_CHALLENGES}/${challengeId}`);
-
-    if (!response.ok) {
-        throw new Error(`챌린지 상세 조회 실패: status ${response.status}`);
-    }
-
-    const result = await response.json();
+    const result = await apiClient.get(`${API_CHALLENGES}/${challengeId}`);
     return result.data;
 }
 
 async function fetchPostsByChallenge(challengeId) {
-    const response = await fetch(`${API_CHALLENGES}/${challengeId}/posts`);
-
-    if (!response.ok) {
-        throw new Error(`챌린지 Up-Date 목록 조회 실패: status ${response.status}`);
-    }
-
-    const result = await response.json();
+    const result = await apiClient.get(`${API_CHALLENGES}/${challengeId}/posts`);
     return result.data ?? [];
 }
 
-async function fetchMyParticipationId(userId, challengeId) {
-  const response = await fetch(`${API_USERS}/${userId}/challenges`);
+async function fetchMyPosts(challengeId) {
+    const result = await apiClient.get(
+        `${API_USERS}/me/challenges/${challengeId}/posts`
+    );
+    return result.data ?? [];
+}
 
-  if (!response.ok) {
-    throw new Error(`내 챌린지 목록 조회 실패: status ${response.status}`);
-  }
-
-  const result = await response.json();
-  const challenges = result.data || [];
-
-  const found = challenges.find(
-    (ch) => ch.challengeId === challengeId
-  );
-
-  return found ? found.participationId : null;
+async function fetchMyParticipationId(challengeId) {
+    const result = await apiClient.get(`${API_USERS}/me/challenges`);
+    const list = result.data || [];
+    const found = list.find((ch) => ch.challengeId === challengeId);
+    return found ? found.participationId : null;
 }
 
 function createPostCard(post) {
@@ -149,7 +139,7 @@ function createPostCard(post) {
 
     const nicknameEl = document.createElement("div");
     nicknameEl.className = "post-card__nickname";
-    nicknameEl.textContent = post.userNickname ?? "사용자";
+    nicknameEl.textContent = post.writerNickname ?? "사용자";
 
     const snippetEl = document.createElement("div");
     snippetEl.className = "post-card__snippet";
@@ -164,7 +154,7 @@ function createPostCard(post) {
 
     const right = document.createElement("div");
     right.className = "post-card__date";
-    right.textContent = formatPostDate(post.postDate);
+    right.textContent = formatPostDate(post.createdAt);
 
     li.appendChild(left);
     li.appendChild(right);
@@ -176,15 +166,13 @@ function createPostCard(post) {
     return li;
 }
 
-function renderMyPosts(allPosts, currentUserId) {
+function renderMyPosts(myPosts) {
     const listEl = document.getElementById("my-posts-list");
     const emptyEl = document.getElementById("my-posts-empty");
 
     if (!listEl || !emptyEl) return;
 
-    const myPosts = allPosts.filter((post) => post.userId === currentUserId);
-
-    if (myPosts.length === 0) {
+    if (!myPosts || myPosts.length === 0) {
         emptyEl.style.display = "block";
         listEl.style.display = "none";
         listEl.innerHTML = "";
@@ -224,33 +212,30 @@ function renderAllPosts(allPosts) {
     });
 }
 
-function setupWriteButton(challengeId, currentUserId) {
-  const writeButton = document.getElementById("my-posts-write-button");
-  if (!writeButton) return;
+function setupWriteButton(challengeId) {
+    const writeButton = document.getElementById("my-posts-write-button");
+    if (!writeButton) return;
 
-  writeButton.addEventListener("click", async () => {
-    try {
-      const participationId = await fetchMyParticipationId(
-        currentUserId,
-        challengeId
-      );
+    writeButton.addEventListener("click", async () => {
+        try {
+            const participationId = await fetchMyParticipationId(challengeId);
 
-      if (!participationId) {
-        alert("이 챌린지에 대한 참여 정보가 없습니다. 먼저 참가를 완료해 주세요.");
-        return;
-      }
+            if (!participationId) {
+                alert("이 챌린지에 대한 참여 정보가 없습니다. 먼저 참가를 완료해 주세요.");
+                return;
+            }
 
-      const params = new URLSearchParams({
-        challengeId: String(challengeId),
-        participationId: String(participationId),
-      });
+            const params = new URLSearchParams({
+                challengeId: String(challengeId),
+                participationId: String(participationId),
+            });
 
-      location.href = `post-write.html?${params.toString()}`;
-    } catch (e) {
-      console.error(e);
-      alert("작성 페이지로 이동하는 데 실패했습니다. 잠시 후 다시 시도해 주세요.");
-    }
-  });
+            location.href = `post-write.html?${params.toString()}`;
+        } catch (e) {
+            console.error(e);
+            alert("작성 페이지로 이동하는 데 실패했습니다.");
+        }
+    });
 }
 
 function renderChallengeHero(detail, extra) {
@@ -260,11 +245,16 @@ function renderChallengeHero(detail, extra) {
     const participantsEl = document.getElementById("challenge-participants");
     const descEl = document.getElementById("challenge-description");
 
+    if (!categoryEl || !titleEl || !dueEl || !participantsEl || !descEl) return;
+
     categoryEl.textContent = `#${mapCategoryToKorean(detail.category)}`;
     titleEl.textContent = detail.title;
-    dueEl.textContent = formatDueDate(detail.dueDate);
+    dueEl.textContent = formatDueDate(detail.endDate ?? detail.dueDate ?? null);
 
-    const count = extra?.participantCount ?? 0;
+    const count =
+        detail.participantCount ??
+        extra?.participantCount ??
+        0;
     participantsEl.textContent = `총 ${count}명 참여 중`;
 
     descEl.textContent = detail.description ?? "";
@@ -280,7 +270,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { challengeId, participantCount } = getDetailParams();
 
     if (!challengeId) {
-        console.error("URL에 challengeId가 없습니다.");
         location.href = "challenge-list.html";
         return;
     }
@@ -288,16 +277,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     setupBackButton();
     setupHeader();
 
-
     try {
         const detail = await fetchChallengeDetail(challengeId);
         renderChallengeHero(detail, { participantCount });
 
         const allPosts = await fetchPostsByChallenge(challengeId);
         renderAllPosts(allPosts);
-        renderMyPosts(allPosts, currentUser.id);
 
-        setupWriteButton(challengeId, currentUser.id);
+        const myPosts = await fetchMyPosts(challengeId);
+        renderMyPosts(myPosts);
+
+        setupWriteButton(challengeId);
     } catch (e) {
         console.error(e);
         alert("챌린지 정보를 불러오는 데 실패했습니다.");

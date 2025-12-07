@@ -36,7 +36,7 @@ function hideMessage(element) {
 }
 
 function validatePassword(value) {
-  if (value.length < 8 || value.length > 20) return false;
+  if (value.length < 8 || value > 20) return false;
 
   const upper = /[A-Z]/;
   const lower = /[a-z]/;
@@ -161,6 +161,7 @@ function setupHeader() {
 
   logoutItem?.addEventListener("click", () => {
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("accessToken");
     location.href = "login.html";
   });
 
@@ -196,14 +197,17 @@ async function handleSave(currentUser) {
   };
 
   try {
+    await apiClient.patch(`${API_BASE_URL}/api/users/me/password`, payload);
+
     alert("비밀번호가 변경되었습니다. 다시 로그인해 주세요.");
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("accessToken");
     location.href = "login.html";
   } catch (err) {
     console.error(err);
     showMessage(
       globalError,
-      "비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요."
+      "비밀번호 변경에 실패했습니다. 현재 비밀번호를 다시 확인해주세요."
     );
   }
 }

@@ -1,4 +1,5 @@
 const API_BASE = "http://localhost:8080";
+const API_USERS_ME = `${API_BASE}/api/users/me`;
 
 function setupHeader() {
     const logoLink = document.querySelector(".main-header__logo a");
@@ -24,6 +25,7 @@ function setupHeader() {
 
     logoutItem?.addEventListener("click", () => {
         localStorage.removeItem("currentUser");
+        localStorage.removeItem("accessToken");
         location.href = "login.html";
     });
 
@@ -63,13 +65,25 @@ function setupActionButtons() {
             location.href = "password-edit.html";
         });
     }
-
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (!currentUser) {
+async function loadCurrentUserFromServer() {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
         location.href = "login.html";
+        return null;
+    }
+
+    const res = await apiClient.get(API_USERS_ME);
+    const profile = res.data;
+
+    localStorage.setItem("currentUser", JSON.stringify(profile));
+    return profile;
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const currentUser = await loadCurrentUserFromServer();
+    if (!currentUser) {
         return;
     }
 

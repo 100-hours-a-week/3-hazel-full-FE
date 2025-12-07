@@ -1,5 +1,6 @@
-const API_BASE_URL = "http://localhost:8080";
-const CHECK_NICKNAME_API_URL = `${API_BASE_URL}/api/users/check-nickname`;
+const API_BASE = "http://localhost:8080";
+const CHECK_NICKNAME_API_URL = `${API_BASE}/api/auth/check-nickname`;
+const UPDATE_PROFILE_API_URL = `${API_BASE}/api/users/me`;
 
 const nicknameInput = document.getElementById("edit-nickname");
 const emailText = document.getElementById("edit-email");
@@ -37,23 +38,12 @@ function validateNicknamePattern(value) {
 }
 
 function includesWhitespace(value) {
-  const regex = /\s/;
-  return regex.test(value);
+  return /\s/.test(value);
 }
 
 async function isNicknameDuplicate(nickname, signal) {
   const url = CHECK_NICKNAME_API_URL + "?nickname=" + encodeURIComponent(nickname);
-
-  const response = await fetch(url, {
-    method: "GET",
-    signal,
-  });
-
-  if (!response.ok) {
-    throw new Error("nickname duplicate check error");
-  }
-
-  const result = await response.json();
+  const result = await apiClient.get(url, { signal });
   return result.data;
 }
 
@@ -100,17 +90,15 @@ async function validateNicknameAndCheckDuplicate() {
     return;
   }
 
-  if (nicknameAbortController) {
-    nicknameAbortController.abort();
-  }
+  if (nicknameAbortController) nicknameAbortController.abort();
   nicknameAbortController = new AbortController();
 
   showMessage(errorText, "닉네임 중복 확인 중...", "#666");
 
   try {
-    const exists = await isNicknameDuplicate(value, nicknameAbortController.signal);
+    const available = await isNicknameDuplicate(value, nicknameAbortController.signal);
 
-    if (exists) {
+    if (!available) {
       showMessage(errorText, "*중복된 닉네임입니다.");
       nicknameInput.setAttribute("aria-invalid", "true");
       isNicknameValid = false;
@@ -121,8 +109,7 @@ async function validateNicknameAndCheckDuplicate() {
     }
   } catch (err) {
     if (err.name === "AbortError") return;
-
-    showMessage(errorText, "*중복 확인에 실패했어요. 잠시 후 다시 시도해주세요.", "#d33");
+    showMessage(errorText, "*중복 확인에 실패했습니다. 잠시 후 다시 시도해주세요.");
     nicknameInput.setAttribute("aria-invalid", "true");
     isNicknameValid = false;
   }
@@ -161,89 +148,76 @@ function setupHeader() {
   });
 
   logoutItem?.addEventListener("click", () => {
-    localStorage.removeItem("currentUser");
+    localStorage.removeItem("accessToken");
     location.href = "login.html";
   });
 
   document.addEventListener("click", (event) => {
-    if (mypageButton.contains(event.target) || dropdown.contains(event.target)) {
-      return;
-    }
+    if (mypageButton.contains(event.target) || dropdown.contains(event.target)) return;
     dropdown.classList.remove("main-header__dropdown--open");
   });
 }
 
-function initProfileEdit(currentUser) {
-  if (!currentUser) return;
+async function loadProfile() {
+  const result = await apiClient.get(`${API_BASE}/api/users/me`);
+  return result.data;
+}
 
-  originalNickname = currentUser.nickname ?? "";
-
-  if (nicknameInput) {
-    nicknameInput.value = originalNickname;
-  }
-
-  if (emailText) {
-    emailText.textContent = currentUser.email ?? "-";
-  }
-
+function initProfileEdit(user) {
+  originalNickname = user.nickname ?? "";
+  if (nicknameInput) nicknameInput.value = originalNickname;
+  if (emailText) emailText.textContent = user.email ?? "-";
   isNicknameValid = true;
   updateSaveButtonState();
 }
 
-async function handleSave(currentUser) {
-  if (!currentUser) return;
+async function handleSave() {
+  const nickname = nicknameInput.value.trim();
+
   if (!isNicknameValid) {
     showMessage(errorText, "*닉네임을 다시 확인해주세요.");
     return;
   }
 
-  const newNickname = nicknameInput.value.trim();
-  if (!newNickname) {
-    showMessage(errorText, "*닉네임을 입력해주세요.");
-    return;
+  try {
+    await apiClient.patch(UPDATE_PROFILE_API_URL, { nickname });
+
+    alert("닉네임이 수정되었습니다.");
+    location.href = "mypage.html";
+  } catch {
+    showMessage(errorText, "*닉네임 수정에 실패했습니다. 잠시 후 다시 시도해주세요.");
   }
-
-  const updatedUser = {
-    ...currentUser,
-    nickname: newNickname,
-  };
-  localStorage.setItem("currentUser", JSON.stringify(updatedUser));
-
-  alert("닉네임이 수정되었습니다.");
-  location.href = "mypage.html";
 }
 
 function handleCancel() {
   location.href = "mypage.html";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser) {
+document.addEventListener("DOMContentLoaded", async () => {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
     location.href = "login.html";
     return;
   }
 
   setupHeader();
-  initProfileEdit(currentUser);
 
-  if (nicknameInput) {
-    nicknameInput.addEventListener("blur", () => {
-      validateNicknameAndCheckDuplicate();
-    });
-
-    nicknameInput.addEventListener("input", () => {
-      hideMessage(errorText);
-      isNicknameValid = false;
-      updateSaveButtonState();
-    });
+  try {
+    const user = await loadProfile();
+    initProfileEdit(user);
+  } catch {
+    alert("프로필 정보를 불러올 수 없습니다. 다시 로그인해주세요.");
+    location.href = "login.html";
+    return;
   }
 
-  if (cancelButton) {
-    cancelButton.addEventListener("click", handleCancel);
-  }
+  nicknameInput?.addEventListener("blur", validateNicknameAndCheckDuplicate);
+  nicknameInput?.addEventListener("input", () => {
+    hideMessage(errorText);
+    isNicknameValid = false;
+    updateSaveButtonState();
+  });
 
-  if (saveButton) {
-    saveButton.addEventListener("click", () => handleSave(currentUser));
-  }
+  cancelButton?.addEventListener("click", handleCancel);
+  saveButton?.addEventListener("click", handleSave);
 });

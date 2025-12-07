@@ -1,8 +1,8 @@
 const API_BASE_URL = 'http://localhost:8080';
 
-const CHECK_EMAIL_API_URL = `${API_BASE_URL}/api/users/check-email`;
-const CHECK_NICKNAME_API_URL = `${API_BASE_URL}/api/users/check-nickname`;
-const SIGNUP_API_URL = `${API_BASE_URL}/api/users/signup`;
+const CHECK_EMAIL_API_URL = `${API_BASE_URL}/api/auth/check-email`;
+const CHECK_NICKNAME_API_URL = `${API_BASE_URL}/api/auth/check-nickname`;
+const SIGNUP_API_URL = `${API_BASE_URL}/api/auth/signup`;
 
 const nicknameInput = document.getElementById('nickname');
 const emailInput = document.getElementById('email');
@@ -89,9 +89,9 @@ nicknameInput.addEventListener('blur', async function () {
     showMessage(nicknameError, '닉네임 중복 확인 중...', '#666');
 
     try {
-        const exists = await isNicknameDuplicate(nicknameValue, nicknameAbortController.signal);
+        const available = await isNicknameDuplicate(nicknameValue, nicknameAbortController.signal);
 
-        if (exists) {
+        if (!available) {
             showMessage(nicknameError, '*중복된 닉네임입니다.');
             nicknameInput.setAttribute('aria-invalid', 'true');
             isNicknameValid = false;
@@ -172,9 +172,9 @@ emailInput.addEventListener('blur', async function () {
     showMessage(emailError, '이메일 중복 확인 중...', '#666');
 
     try {
-        const exists = await isEmailDuplicate(emailValue, emailAbortController.signal);
+        const available = await isEmailDuplicate(emailValue, emailAbortController.signal);
 
-        if (exists) {
+        if (!available) {
             showMessage(emailError, '*중복된 이메일입니다.');
             emailInput.setAttribute('aria-invalid', 'true');
             isEmailValid = false;

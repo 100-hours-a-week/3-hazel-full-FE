@@ -1,6 +1,6 @@
 const API_BASE_URL = 'http://localhost:8080';
 
-const LOGIN_API_URL = `${API_BASE_URL}/api/users/login`;
+const LOGIN_API_URL = `${API_BASE_URL}/api/auth/login`;
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -50,7 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch(LOGIN_API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(loginPayload)
+            body: JSON.stringify(loginPayload),
+            credentials: "include"
         });
 
         if (!response.ok) {
@@ -124,7 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const userData = await requestLogin(email, password);
 
-            localStorage.setItem('currentUser', JSON.stringify(userData));
+            localStorage.setItem('accessToken', userData.accessToken);
+            localStorage.setItem('currentUser', JSON.stringify({id: userData.id, email: userData.email, nickname: userData.nickname}));
+
 
             location.href = "main.html";
         } catch (e) {

@@ -1,7 +1,5 @@
 const API_BASE = "http://localhost:8080";
 const API_CHALLENGES = `${API_BASE}/api/challenges`;
-const API_POSTS_BY_PARTICIPATION = (participationId) =>
-  `${API_BASE}/api/participations/${participationId}/posts`;
 
 function setupBackButton(challengeId) {
   const backButton = document.getElementById("challenge-back-button");
@@ -40,6 +38,7 @@ function setupHeader() {
 
   logoutItem?.addEventListener("click", () => {
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("accessToken");
     location.href = "login.html";
   });
 
@@ -58,22 +57,14 @@ function getWriteParams() {
   const params = new URLSearchParams(window.location.search);
 
   const challengeIdParam = params.get("challengeId");
-  const participationIdParam = params.get("participationId");
 
   return {
-    challengeId: challengeIdParam ? Number(challengeIdParam) : null,
-    participationId: participationIdParam ? Number(participationIdParam) : null,
+    challengeId: challengeIdParam ? Number(challengeIdParam) : null
   };
 }
 
 async function fetchChallengeDetail(challengeId) {
-  const response = await fetch(`${API_CHALLENGES}/${challengeId}`);
-
-  if (!response.ok) {
-    throw new Error(`챌린지 상세 조회 실패: status ${response.status}`);
-  }
-
-  const result = await response.json();
+  const result = await apiClient.get(`${API_CHALLENGES}/${challengeId}`);
   return result.data;
 }
 
@@ -84,8 +75,7 @@ async function renderChallengeName(challengeId) {
   try {
     const detail = await fetchChallengeDetail(challengeId);
     nameEl.textContent = detail.title ?? "챌린지";
-  } catch (e) {
-    console.error(e);
+  } catch {
     nameEl.textContent = "챌린지 정보를 불러오지 못했습니다.";
   }
 }
@@ -146,7 +136,7 @@ function initCancelButton(challengeId) {
 }
 
 function initSubmitHandler(params) {
-  const { participationId, challengeId } = params;
+  const { challengeId } = params;
 
   const textarea = document.getElementById("post-content");
   const submitButton = document.getElementById("post-write-submit");
@@ -162,46 +152,26 @@ function initSubmitHandler(params) {
       return;
     }
 
-    if (!participationId) {
-      showGlobalError("참여 정보가 없습니다. 다시 시도해 주세요.");
+    if (!challengeId) {
+      showGlobalError("챌린지 정보가 없습니다. 다시 시도해 주세요.");
       return;
     }
-
 
     submitButton.disabled = true;
     const originalText = submitButton.textContent;
     submitButton.textContent = "작성 중...";
 
     try {
-      const response = await fetch(API_POSTS_BY_PARTICIPATION(participationId), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content,
-          imageUrl: null,
-        }),
+      await apiClient.post(`${API_CHALLENGES}/${challengeId}/posts`, {
+        content,
+        imageUrl: null
       });
 
-      if (!response.ok) {
-        throw new Error(`작성 실패: status ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      if (!result.success) {
-        throw new Error(result.message || "작성에 실패했습니다.");
-      }
-
-      if (challengeId) {
-        location.href = `challenge-detail.html?challengeId=${challengeId}`;
-      } else {
-        location.href = "main.html";
-      }
-    } catch (e) {
-      console.error(e);
-      showGlobalError("Up-Date 작성 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+      location.href = `challenge-detail.html?challengeId=${challengeId}`;
+    } catch {
+      showGlobalError(
+        "Up-Date 작성 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요."
+      );
       submitButton.disabled = false;
       submitButton.textContent = originalText;
     }
@@ -209,17 +179,17 @@ function initSubmitHandler(params) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser) {
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
     location.href = "login.html";
     return;
   }
 
   const params = getWriteParams();
-  const { challengeId, participationId } = params;
+  const { challengeId } = params;
 
-  if (!participationId) {
-    alert("참여 정보가 없습니다. 챌린지 상세 페이지에서 다시 시도해 주세요.");
+  if (!challengeId) {
+    alert("챌린지 정보가 없습니다. 챌린지 상세 페이지에서 다시 시도해 주세요.");
     history.back();
     return;
   }
@@ -229,9 +199,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initCancelButton(challengeId);
   initContentTextarea();
 
-  if (challengeId) {
-    await renderChallengeName(challengeId);
-  }
+  await renderChallengeName(challengeId);
 
   initSubmitHandler(params);
 });

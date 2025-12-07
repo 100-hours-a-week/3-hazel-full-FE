@@ -15,32 +15,22 @@ function getApplyParams() {
     };
 }
 
-
 function mapCategoryToKorean(category) {
     switch (category) {
-        case "STUDY":
-            return "공부";
-        case "HEALTH":
-            return "운동";
-        case "READING":
-            return "독서";
-        case "LIFE":
-            return "생활습관";
-        case "ETC":
-            return "기타";
-        default:
-            return category ?? "";
+        case "STUDY": return "공부";ㄴ
+        case "HEALTH": return "운동";
+        case "READING": return "독서";
+        case "LIFE": return "생활습관";
+        case "ETC": return "기타";
+        default: return category ?? "";
     }
 }
+
 function formatDueDate(dueDate) {
-    if (!dueDate) {
-        return "마감일: 기한 없음";
-    }
+    if (!dueDate) return "마감일: 기한 없음";
 
     const date = new Date(dueDate);
-    if (Number.isNaN(date.getTime())) {
-        return "마감일: 기한 없음";
-    }
+    if (Number.isNaN(date.getTime())) return "마감일: 기한 없음";
 
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -49,14 +39,9 @@ function formatDueDate(dueDate) {
     return `마감일: ${y}.${m}.${d}`;
 }
 
+
 async function fetchChallengeDetail(challengeId) {
-    const response = await fetch(`${API_CHALLENGES}/${challengeId}`);
-
-    if (!response.ok) {
-        throw new Error(`챌린지 상세 조회 실패: status ${response.status}`);
-    }
-
-    const result = await response.json();
+    const result = await apiClient.get(`${API_CHALLENGES}/${challengeId}/preview`);
     return result.data;
 }
 
@@ -69,9 +54,11 @@ function renderChallengeDetail(detail, extra) {
 
     categoryEl.textContent = `#${mapCategoryToKorean(detail.category)}`;
     titleEl.textContent = detail.title;
-    dueEl.textContent = formatDueDate(detail.dueDate);
 
-    const count = extra?.participantCount ?? 0;
+    const endDate = detail.endDate ?? detail.dueDate ?? null;
+    dueEl.textContent = formatDueDate(endDate);
+
+    const count = extra?.participantCount ?? detail.participantCount ?? 0;
     participantsEl.textContent = `총 ${count}명 참여 중`;
 
     descEl.textContent = detail.description ?? "";
@@ -114,17 +101,7 @@ function setupActionButton(challengeId, initialJoined, initialParticipantCount) 
         }
 
         try {
-            const response = await fetch(`${API_CHALLENGES}/${challengeId}/join`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ userId: currentUser.id }),
-            });
-
-            if (!response.ok) {
-                throw new Error(`챌린지 참여 실패: status ${response.status}`);
-            }
+            await apiClient.post(`${API_CHALLENGES}/${challengeId}/participations`);
 
             joined = true;
             participantCount += 1;
@@ -135,7 +112,6 @@ function setupActionButton(challengeId, initialJoined, initialParticipantCount) 
         }
     });
 }
-
 
 function setupCloseButton() {
     const closeButton = document.getElementById("apply-close-button");
