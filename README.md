@@ -17,7 +17,7 @@
 - Vanilla JavaScript (ES6+)
 
 ### Back-end
-- <a href="https://github.com/100-hours-a-week/5-erica-react-be">Back-end Github</a>
+- <a href="https://github.com/100-hours-a-week/3-hazel-full-BE.git">Back-end Github</a>
 
 ### 폴더 구조
 <details>
