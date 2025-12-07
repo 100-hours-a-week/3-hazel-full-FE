@@ -61,8 +61,7 @@
     ├── post-write.html
     ├── profile-edit.html
     └── signup.html
-
-    </div>
+    
   </details>
   <br/>
 
@@ -71,33 +70,34 @@
 `홈`
 |로그인|회원가입|
 |---|---|
-|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/366e6139-fd0e-4d0c-b71b-d66845bc5449)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/ced09612-80c1-4ef8-b102-55e57c5c2a78)|
+|![image](https://github.com/user-attachments/assets/41a6d856-293f-4f1f-a6ef-ed67975d693b)|![image](https://github.com/user-attachments/assets/e2dd3cf6-1b65-4a7b-a830-cc50532f3f90)|
 
-`게시글 목록`
-|전체 게시글|개발 게시글|고민 게시글|
+
+`챌린지 목록`
+|메인|챌린지 목록|
+|---|---|
+|![image](https://github.com/user-attachments/assets/36bf57de-1a8c-4df0-8d89-b9cb94b26471)|![image](https://github.com/user-attachments/assets/6deaccb8-a0f8-46d5-9eec-33b72171db05)|
+
+
+`게시물 작성 / 신청 / 상세 / 수정`
+
+|챌린지 작성|챌린지 신청|챌린지 상세|게시글 수정|
+|---|---|---|---|
+||![image](https://github.com/user-attachments/assets/22ad78af-c70f-4d7f-bb26-e65cc49bb46f)|![image](https://github.com/user-attachments/assets/f5359843-9766-4b05-807d-ff322e0680f9)||
+
+
+`Up-Date 등록 / 상세 / 수정`
+
+|Up-Date 등록|Up-Date 상세|Up-Date 수정|
 |---|---|---|
-|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/8cf84f26-cc6f-4cac-a25e-116875345185)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/0eb19661-b049-4dbb-b319-9b188bed412d)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/b81534fa-90bd-4cd6-aa89-045573447c6c)|
-
-
-`게시물 작성 / 상세 / 수정 / 삭제`
-
-|게시물 작성|게시물 상세|게시글 수정|게시글 삭제|
-|---|---|---|---|
-|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/d5920b5c-6e6f-4e7c-9eda-9bccba44d267)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/08804c41-5640-4d37-baf3-9c0ece156ff6)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/eed24594-d475-499f-bf9b-d580fc782396)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/88cdcea2-b3b2-4cd0-abdc-52836eb2a92b)|
-
-
-`댓글 목록 / 등록 / 수정 /삭제`
-
-|댓글 화면|댓글 등록|댓글 수정|댓글 삭제|
-|---|---|---|---|
-|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/d57fa86e-d1d8-4fb7-b86c-021129053ef0)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/076fa883-e20f-46ad-8649-67b38448676a)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/1c70a6e6-1f4c-4334-aaf9-f8a9ee5d5f9c)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/3f411243-9cc0-49d7-b3d0-511c961ada60)|
+|![image](https://github.com/user-attachments/assets/ef3352a5-d5bb-484c-9d4a-05db1d54c1f9)|![image](https://github.com/user-attachments/assets/1f6bc642-f842-44a9-ba0e-7487e884c0a2)||
 
   
-`프로필 수정 / 비밀번호 수정 / 회원 탈퇴 / 로그아웃`
+`프로필 상제 / 프로필 수정 / 비밀번호 수정 / 회원 탈퇴`
 
-|프로필 수정|비밀번호 수정|회원 탈퇴|로그아웃|
+|프로필 상세|프로필 수정|비밀번호 수정|회원 탈퇴|
 |---|---|---|---|
-|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/f96873ad-36f8-4258-92e0-b0f0f5c047d0)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/17ac88da-b06a-4b47-ab01-06fdcdced779)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/95e9e091-139a-4cf2-9d99-e0d22d8d24e5)|![image](https://github.com/100-hours-a-week/5-erica-express-fe/assets/81230764/878fb30b-fdb2-448f-aa16-24e3e088e94d)|
+|![image](https://github.com/user-attachments/assets/5c928015-dca7-4bd4-ba14-f59cd0a80b40)|![image](https://github.com/user-attachments/assets/e0843860-caeb-4350-8b23-02dfaf2432a2)|![image](https://github.com/user-attachments/assets/774c7392-f7c2-4c95-afcd-eebc0adb4dc4)||
 
 <br/>
 
@@ -108,7 +108,8 @@
 <br/>
 
 ## 프로젝트 후기
-평소에 웹 페이지를 개발할 때 vanilla가 아닌 React 라이브러리를 사용해서 개발을 하는데, 요번 프로젝트는 vanilla만 사용해서 개발을 했습니다. vanilla에서는 훅을 사용하지 못하기 때문에 훅처럼 동작하는 코드를 만들기 위해 어떻게 해야하나 고민도 많이해보게 된 프로젝트였던 것 같습니다. 프로젝트를 하면서 javascript 동작 방식에 대해서 좀 더 이해하게 되었습니다. 좀 더 많은 기능을 추가하고 싶었으나 아이디어 부족으로 인해, 기능 추가를 하지 못한 점이 아쉬운 것 같습니다. 다음 프로젝트에서는 여러 핵심 기능을 구현하고, 현재 습득한 기술 및 지식을 활용하여 프로젝트를 진행하도록 하겠습니다.
+
+추후 작성 ...
 <br/>
 <br/>
 <br/>
